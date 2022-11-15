@@ -19,7 +19,7 @@ class Animal {
 
 const aria = new Animal('Aria', 5, 'woof woof')
 const dolfy = new Animal('Dolfy', 11, 'guau')
-aria.sleep();
+// aria.sleep();
 
 class Bird extends Animal { // Inheritance
   constructor(name = 'Piolin', age = 1, sound, meters, heart) { // Define default values if not given
@@ -75,6 +75,9 @@ class Robber extends User {
     super(name);
     this.stolenQuantity = 0;
     this.stealingPowers = 1;
+    this.bullets = 10;
+    this.shootingInterval = undefined;
+    this.stealingInterval = undefined;
   }
 
   steal(money) {
@@ -82,17 +85,39 @@ class Robber extends User {
     this.stealingPowers = this.stealingPowers + 1;
     return money;
   }
+
+  shoot() {
+    this.shootingInterval = setInterval(() => {
+      if (this.bullets > 0) {
+        this.bullets = this.bullets - 1;
+        console.log('Bullets left: ', this.bullets)
+      }
+    }, 1000)
+  }
+
+  stopShooting() {
+    clearInterval(this.shootingInterval);
+    console.log('Stopped shooting. Bullets left: ', this.bullets)
+  }
+
+  reload(num) {
+    this.bullets = this.bullets + num;
+    console.log(`Reloaded. Bullets now: ${this.bullets}`)
+  }
 }
 
 const pepe = new Person('Pepe', 150);
 const manolo = new Robber('Manolo');
 
+// manolo.shoot();
+// setTimeout(() => { manolo.stopShooting() }, 3000);
+// setTimeout(() => { manolo.reload(30) }, 5000);
 
-pepe.beStolen(manolo.steal(50));
-pepe.beStolen(manolo.steal(105));
-pepe.sayHello()
-manolo.sayHello()
-console.log(manolo)
+// pepe.beStolen(manolo.steal(50));
+// pepe.beStolen(manolo.steal(105));
+// pepe.sayHello()
+// manolo.sayHello()
+// console.log(manolo)
 
 
 
